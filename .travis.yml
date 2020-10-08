@@ -1,0 +1,16 @@
+sudo: require
+services:
+- docker
+before_install:
+- docker pull node:8-onbuild
+install:
+- docker build -t probot-hello .
+script:
+- docker run --rm probot-hello npm run test
+- docker run --rm probot-hello npm run lint
+deploy:
+  provider: heroku
+  api_key:
+    secure: WaxwQINGmNrC9TxFgi+CV8Co8+TNk25mQovClcMfkEUSydbU0Z4U8vQCEwM57kBcvriB8hBU1iJH4GDXAkxrno+lYeOMqeKZHU0ml0abypIBYdwRoxGkRmazNcirLlpCzLRf1HtRkfEmB7nRAPn0mGgiA6S7yb55Q/JwiwQ1Hzt21NsGgGKmL2+2z36qSGaC+aBHFr3mRxenM2Qt/jrUDn2CxKrHkg5zjPfjFoiDP/n5cH3g63QASh5yP4ZmBNN2LAwhoS+h+GstbZecna1llEPN2GLq0UN+85i7K0G7jCqNdFmGlQJnrMSsYyjygWw5W8KdUlbi6EewI/7Q6pPQcPOH+YU6PdGkgFzgyBD2LseWSZRJS4IEphphHjosRWg8C6latPOTXrUmOdt+1htQsfUYby9LejPjb2CwZcngHclVu84wMMMuzSdmLEpHWN+LfL+dkhMyhq15mzHffY49/LkhSS87kd5V4OX4TGTRNp0WR7E/fkFaWJ8BNAzWPiFMksdkwHGMPDGMKRtLPAHO8XOkEUpyQEjsYL7DnKtzHZqvTzoH/OASVfvjYl9Nghw5WeeiEBbGWvS93EPfyrFCCNdTyq0VAST86KMHGsg6qY7kD54R2pXjbtHQOJ4nB8p17kWw56zRaRdmHU4GQrhwOkdB3aE+tWDXCpBFR43Iczc=
+  on: heroku_production
+  app: probot-hangib
